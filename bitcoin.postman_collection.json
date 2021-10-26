@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "dea08aa0-4b34-45e3-9e4d-abc1ec680330",
-		"name": "bitcoin-node",
+		"name": "bitcoin",
 		"description": "Connecting Postman to a bitcoin node.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
