@@ -42,12 +42,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{server}}:8332",
-							"protocol": "http",
+							"raw": "http://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{server}}"
 							],
-							"port": "8332"
+							"port": "{{port}}"
 						},
 						"description": "# `getblockhash`\nReturns hash of block in best-block-chain at height provided.\n\n## Argument #1 - height\nType: numeric, required\n\nThe height index"
 					},
@@ -86,12 +86,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{server}}:8332",
-							"protocol": "http",
+							"raw": "http://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{server}}"
 							],
-							"port": "8332"
+							"port": "{{port}}"
 						},
 						"description": "# `getblockhash`\nReturns hash of block in best-block-chain at height provided.\n\n## Argument #1 - height\nType: numeric, required\n\nThe height index"
 					},
@@ -130,12 +130,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{server}}:8332",
-							"protocol": "http",
+							"raw": "http://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{server}}"
 							],
-							"port": "8332"
+							"port": "{{port}}"
 						},
 						"description": "# gettxout\n`gettxout \"txid\" n ( include_mempool )`\n\nReturns details about an unspent transaction output.\n\n## Argument #1 - txid\n**Type**: string, required\n\nThe transaction id\n\n## Argument #2 - n\n**Type**: numeric, required\n\nvout number\n\n## Argument #3 - include_mempool\n**Type**: boolean, optional, default=true\n\nWhether to include the mempool. Note that an unspent output that is spent in the mempool won’t appear.\n\n## Result\n```\n{                             (json object)\n  \"bestblock\" : \"hex\",        (string) The hash of the block at the tip of the chain\n  \"confirmations\" : n,        (numeric) The number of confirmations\n  \"value\" : n,                (numeric) The transaction value in BTC\n  \"scriptPubKey\" : {          (json object)\n    \"asm\" : \"hex\",            (string)\n    \"hex\" : \"hex\",            (string)\n    \"reqSigs\" : n,            (numeric) Number of required signatures\n    \"type\" : \"hex\",           (string) The type, eg pubkeyhash\n    \"addresses\" : [           (json array) array of bitcoin addresses\n      \"str\",                  (string) bitcoin address\n      ...\n    ]\n  },\n  \"coinbase\" : true|false     (boolean) Coinbase or not\n}\n```\n## Examples\n```\nGet unspent transactions:\n\nbitcoin-cli listunspent\nView the details:\n\nbitcoin-cli gettxout \"txid\" 1\nAs a JSON-RPC call:\n\ncurl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"gettxout\", \"params\": [\"txid\", 1]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/\n```"
 					},
@@ -174,12 +174,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{server}}:8332",
-							"protocol": "http",
+							"raw": "http://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{server}}"
 							],
-							"port": "8332"
+							"port": "{{port}}"
 						}
 					},
 					"response": []
@@ -217,12 +217,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{server}}:8332",
-							"protocol": "http",
+							"raw": "http://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{server}}"
 							],
-							"port": "8332"
+							"port": "{{port}}"
 						},
 						"description": "# getchaintxstats\n`getchaintxstats ( nblocks \"blockhash\" )`\n\nCompute statistics about the total number and rate of transactions in the chain.\n\n## Argument #1 - nblocks\nType: numeric, optional, default=one month\n\nSize of the window in number of blocks\n\n## Argument #2 - blockhash\nType: string, optional, default=chain tip\n\nThe hash of the block that ends the window.\n\n## Result\n```\n{                                       (json object)\n  \"time\" : xxx,                         (numeric) The timestamp for the final block in the window, expressed in UNIX epoch time\n  \"txcount\" : n,                        (numeric) The total number of transactions in the chain up to that point\n  \"window_final_block_hash\" : \"hex\",    (string) The hash of the final block in the window\n  \"window_final_block_height\" : n,      (numeric) The height of the final block in the window.\n  \"window_block_count\" : n,             (numeric) Size of the window in number of blocks\n  \"window_tx_count\" : n,                (numeric) The number of transactions in the window. Only returned if \"window_block_count\" is > 0\n  \"window_interval\" : n,                (numeric) The elapsed time in the window in seconds. Only returned if \"window_block_count\" is > 0\n  \"txrate\" : n                          (numeric) The average rate of transactions per second in the window. Only returned if \"window_interval\" is > 0\n}\n```\n## Examples\n```\nbitcoin-cli getchaintxstats\ncurl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"getchaintxstats\", \"params\": [2016]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/\n```"
 					},
@@ -261,12 +261,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{server}}:8332",
-							"protocol": "http",
+							"raw": "http://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{server}}"
 							],
-							"port": "8332"
+							"port": "{{port}}"
 						},
 						"description": "# getblockheader\n`getblockheader \"blockhash\" ( verbose )`\n\nIf verbose is false, returns a string that is serialized, hex-encoded data for blockheader ‘hash’.\n\nIf verbose is true, returns an Object with information about blockheader ‘hash’.\n\n## Argument #1 - blockhash\n**Type**: string, required\n\nThe block hash\n\n## Argument #2 - verbose\n**Type**: boolean, optional, default=true\n\ntrue for a json object, false for the hex-encoded data\n\n## Result (for verbose = true)\n```\n{                                 (json object)\n  \"hash\" : \"hex\",                 (string) the block hash (same as provided)\n  \"confirmations\" : n,            (numeric) The number of confirmations, or -1 if the block is not on the main chain\n  \"height\" : n,                   (numeric) The block height or index\n  \"version\" : n,                  (numeric) The block version\n  \"versionHex\" : \"hex\",           (string) The block version formatted in hexadecimal\n  \"merkleroot\" : \"hex\",           (string) The merkle root\n  \"time\" : xxx,                   (numeric) The block time expressed in UNIX epoch time\n  \"mediantime\" : xxx,             (numeric) The median block time expressed in UNIX epoch time\n  \"nonce\" : n,                    (numeric) The nonce\n  \"bits\" : \"hex\",                 (string) The bits\n  \"difficulty\" : n,               (numeric) The difficulty\n  \"chainwork\" : \"hex\",            (string) Expected number of hashes required to produce the current chain\n  \"nTx\" : n,                      (numeric) The number of transactions in the block\n  \"previousblockhash\" : \"hex\",    (string) The hash of the previous block\n  \"nextblockhash\" : \"hex\"         (string) The hash of the next block\n}\n```\n## Result (for verbose=false)\nName\n\nType\n\nDescription\n\nhex\n\nstring\n\nA string that is serialized, hex-encoded data for block ‘hash’\n\n## Examples\n```\nbitcoin-cli getblockheader \"00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09\"\ncurl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"getblockheader\", \"params\": [\"00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09\"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/\n```"
 					},
@@ -305,12 +305,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{server}}:8332",
-							"protocol": "http",
+							"raw": "http://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{server}}"
 							],
-							"port": "8332"
+							"port": "{{port}}"
 						}
 					},
 					"response": []
@@ -348,12 +348,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{server}}:8332",
-							"protocol": "http",
+							"raw": "http://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{server}}"
 							],
-							"port": "8332"
+							"port": "{{port}}"
 						},
 						"description": "# getblockstats\n`getblockstats hash_or_height ( stats )`\n\nCompute per block statistics for a given window. All amounts are in satoshis.\n\nIt won’t work for some heights with pruning.\n\n## Argument #1 - hash_or_height\n**Type**: string or numeric, required\n\nThe block hash or height of the target block\n\n## Argument #2 - stats\n**Type**: json array, optional, default=all values\n\nValues to plot (see result below)\n```\n[\n  \"height\",     (string) Selected statistic\n  \"time\",       (string) Selected statistic\n  ...\n]\n```\nResult\n```\n{                              (json object)\n  \"avgfee\" : n,                (numeric) Average fee in the block\n  \"avgfeerate\" : n,            (numeric) Average feerate (in satoshis per virtual byte)\n  \"avgtxsize\" : n,             (numeric) Average transaction size\n  \"blockhash\" : \"hex\",         (string) The block hash (to check for potential reorgs)\n  \"feerate_percentiles\" : [    (json array) Feerates at the 10th, 25th, 50th, 75th, and 90th percentile weight unit (in satoshis per virtual byte)\n    n,                         (numeric) The 10th percentile feerate\n    n,                         (numeric) The 25th percentile feerate\n    n,                         (numeric) The 50th percentile feerate\n    n,                         (numeric) The 75th percentile feerate\n    n                          (numeric) The 90th percentile feerate\n  ],\n  \"height\" : n,                (numeric) The height of the block\n  \"ins\" : n,                   (numeric) The number of inputs (excluding coinbase)\n  \"maxfee\" : n,                (numeric) Maximum fee in the block\n  \"maxfeerate\" : n,            (numeric) Maximum feerate (in satoshis per virtual byte)\n  \"maxtxsize\" : n,             (numeric) Maximum transaction size\n  \"medianfee\" : n,             (numeric) Truncated median fee in the block\n  \"mediantime\" : n,            (numeric) The block median time past\n  \"mediantxsize\" : n,          (numeric) Truncated median transaction size\n  \"minfee\" : n,                (numeric) Minimum fee in the block\n  \"minfeerate\" : n,            (numeric) Minimum feerate (in satoshis per virtual byte)\n  \"mintxsize\" : n,             (numeric) Minimum transaction size\n  \"outs\" : n,                  (numeric) The number of outputs\n  \"subsidy\" : n,               (numeric) The block subsidy\n  \"swtotal_size\" : n,          (numeric) Total size of all segwit transactions\n  \"swtotal_weight\" : n,        (numeric) Total weight of all segwit transactions\n  \"swtxs\" : n,                 (numeric) The number of segwit transactions\n  \"time\" : n,                  (numeric) The block time\n  \"total_out\" : n,             (numeric) Total amount in all outputs (excluding coinbase and thus reward [ie subsidy + totalfee])\n  \"total_size\" : n,            (numeric) Total size of all non-coinbase transactions\n  \"total_weight\" : n,          (numeric) Total weight of all non-coinbase transactions\n  \"totalfee\" : n,              (numeric) The fee total\n  \"txs\" : n,                   (numeric) The number of transactions (including coinbase)\n  \"utxo_increase\" : n,         (numeric) The increase/decrease in the number of unspent outputs\n  \"utxo_size_inc\" : n          (numeric) The increase/decrease in size for the utxo index (not discounting op_return and similar)\n}\n```\nExamples\n```\nbitcoin-cli getblockstats '\"00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09\"' '[\"minfeerate\",\"avgfeerate\"]'\nbitcoin-cli getblockstats 1000 '[\"minfeerate\",\"avgfeerate\"]'\ncurl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"getblockstats\", \"params\": [\"00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09\", [\"minfeerate\",\"avgfeerate\"]]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/\ncurl --user myusername --data-binary '{\"jsonrpc\": \"1.\n```"
 					},
@@ -392,12 +392,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{server}}:8332",
-							"protocol": "http",
+							"raw": "http://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{server}}"
 							],
-							"port": "8332"
+							"port": "{{port}}"
 						},
 						"description": "# getblockchaininfo\n`getblockchaininfo`\n\nReturns an object containing various state info regarding blockchain processing.\n\n## Result\n```\n{                                         (json object)\n  \"chain\" : \"str\",                        (string) current network name (main, test, regtest)\n  \"blocks\" : n,                           (numeric) the height of the most-work fully-validated chain. The genesis block has height 0\n  \"headers\" : n,                          (numeric) the current number of headers we have validated\n  \"bestblockhash\" : \"str\",                (string) the hash of the currently best block\n  \"difficulty\" : n,                       (numeric) the current difficulty\n  \"mediantime\" : n,                       (numeric) median time for the current best block\n  \"verificationprogress\" : n,             (numeric) estimate of verification progress [0..1]\n  \"initialblockdownload\" : true|false,    (boolean) (debug information) estimate of whether this node is in Initial Block Download mode\n  \"chainwork\" : \"hex\",                    (string) total amount of work in active chain, in hexadecimal\n  \"size_on_disk\" : n,                     (numeric) the estimated size of the block and undo files on disk\n  \"pruned\" : true|false,                  (boolean) if the blocks are subject to pruning\n  \"pruneheight\" : n,                      (numeric) lowest-height complete block stored (only present if pruning is enabled)\n  \"automatic_pruning\" : true|false,       (boolean) whether automatic pruning is enabled (only present if pruning is enabled)\n  \"prune_target_size\" : n,                (numeric) the target size used by pruning (only present if automatic pruning is enabled)\n  \"softforks\" : {                         (json object) status of softforks\n    \"xxxx\" : {                            (json object) name of the softfork\n      \"type\" : \"str\",                     (string) one of \"buried\", \"bip9\"\n      \"bip9\" : {                          (json object) status of bip9 softforks (only for \"bip9\" type)\n        \"status\" : \"str\",                 (string) one of \"defined\", \"started\", \"locked_in\", \"active\", \"failed\"\n        \"bit\" : n,                        (numeric) the bit (0-28) in the block version field used to signal this softfork (only for \"started\" status)\n        \"start_time\" : xxx,               (numeric) the minimum median time past of a block at which the bit gains its meaning\n        \"timeout\" : xxx,                  (numeric) the median time past of a block at which the deployment is considered failed if not yet locked in\n        \"since\" : n,                      (numeric) height of the first block to which the status applies\n        \"statistics\" : {                  (json object) numeric statistics about BIP9 signalling for a softfork (only for \"started\" status)\n          \"period\" : n,                   (numeric) the length in blocks of the BIP9 signalling period\n          \"threshold\" : n,                (numeric) the number of blocks with the version bit set required to activate the feature\n          \"elapsed\" : n,                  (numeric) the number of blocks elapsed since the beginning of the current period\n          \"count\" : n,                    (numeric) the number of blocks with the version bit set in the current period\n          \"possible\" : true|false         (boolean) returns false if there are not enough blocks left in this period to pass activation threshold\n        }\n      },\n      \"height\" : n,                       (numeric) height of the first block which the rules are or will be enforced (only for \"buried\" type, or \"bip9\" type with \"active\" status)\n      \"active\" : true|false               (boolean) true if the rules are enforced for the mempool and the next block\n    },\n    ...\n  },\n  \"warnings\" : \"str\"                      (string) any network and blockchain warnings\n}\n```\n## Examples\n```\nbitcoin-cli getblockchaininfo\ncurl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"getblockchaininfo\", \"params\": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/\n```"
 					},
@@ -436,12 +436,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{server}}:8332",
-							"protocol": "http",
+							"raw": "http://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{server}}"
 							],
-							"port": "8332"
+							"port": "{{port}}"
 						},
 						"description": "# getchaintxstats\n`getchaintxstats ( nblocks \"blockhash\" )`\n\nCompute statistics about the total number and rate of transactions in the chain.\n\nArgument #1 - `nblocks`\nType: numeric, optional, default=one month\n\nSize of the window in number of blocks\n\nArgument #2 - `blockhash`\nType: string, optional, default=chain tip\n\nThe hash of the block that ends the window."
 					},
@@ -480,12 +480,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{server}}:8332",
-							"protocol": "http",
+							"raw": "http://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{server}}"
 							],
-							"port": "8332"
+							"port": "{{port}}"
 						}
 					},
 					"response": []
@@ -523,12 +523,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{server}}:8332",
-							"protocol": "http",
+							"raw": "http://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{server}}"
 							],
-							"port": "8332"
+							"port": "{{port}}"
 						},
 						"description": "# getdifficulty\n`getdifficulty`\n\nReturns the proof-of-work difficulty as a multiple of the minimum difficulty.\n\n## Result\nName\n\nType\n\nDescription\n\nn\n\nnumeric\n\nthe proof-of-work difficulty as a multiple of the minimum difficulty.\n\n## Examples\n```\nbitcoin-cli getdifficulty\ncurl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"getdifficulty\", \"params\": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/\n```"
 					},
@@ -567,12 +567,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{server}}:8332",
-							"protocol": "http",
+							"raw": "http://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{server}}"
 							],
-							"port": "8332"
+							"port": "{{port}}"
 						}
 					},
 					"response": []
@@ -610,12 +610,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{server}}:8332",
-							"protocol": "http",
+							"raw": "http://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{server}}"
 							],
-							"port": "8332"
+							"port": "{{port}}"
 						},
 						"description": "# getmempoolinfo\n`getmempoolinfo`\n\nReturns details on the active state of the TX memory pool.\n\n## Result\n```\n{                            (json object)\n  \"loaded\" : true|false,     (boolean) True if the mempool is fully loaded\n  \"size\" : n,                (numeric) Current tx count\n  \"bytes\" : n,               (numeric) Sum of all virtual transaction sizes as defined in BIP 141. Differs from actual serialized size because witness data is discounted\n  \"usage\" : n,               (numeric) Total memory usage for the mempool\n  \"maxmempool\" : n,          (numeric) Maximum memory usage for the mempool\n  \"mempoolminfee\" : n,       (numeric) Minimum fee rate in BTC/kB for tx to be accepted. Is the maximum of minrelaytxfee and minimum mempool fee\n  \"minrelaytxfee\" : n,       (numeric) Current minimum relay fee for transactions\n  \"unbroadcastcount\" : n     (numeric) Current number of transactions that haven't passed initial broadcast yet\n}\n```\n## Examples\n```\nbitcoin-cli getmempoolinfo\ncurl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"getmempoolinfo\", \"params\": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/\n```"
 					},
@@ -654,12 +654,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{server}}:8332",
-							"protocol": "http",
+							"raw": "http://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{server}}"
 							],
-							"port": "8332"
+							"port": "{{port}}"
 						},
 						"description": "## getrawmempool\n`getrawmempool ( verbose mempool_sequence )`\n\nReturns all transaction ids in memory pool as a json array of string transaction ids.\n\nHint: use `getmempoolentry` to fetch a specific transaction from the mempool.\n\n## Argument #1 - verbose\n**Type**: boolean, optional, default=false\n\nTrue for a json object, false for array of transaction ids\n\n## Argument #2 - mempool_sequence\n**Type**: boolean, optional, default=false\n\nIf verbose=false, returns a json object with transaction list and mempool sequence number attached.\n\nResult (for verbose = false)\n```\n[           (json array)\n  \"hex\",    (string) The transaction id\n  ...\n]\n``\nResult (for verbose = true)\n```\n{                                         (json object)\n  \"transactionid\" : {                     (json object)\n    \"vsize\" : n,                          (numeric) virtual transaction size as defined in BIP 141. This is different from actual serialized size for witness transactions as witness data is discounted.\n    \"weight\" : n,                         (numeric) transaction weight as defined in BIP 141.\n    \"fee\" : n,                            (numeric) transaction fee in BTC (DEPRECATED)\n    \"modifiedfee\" : n,                    (numeric) transaction fee with fee deltas used for mining priority (DEPRECATED)\n    \"time\" : xxx,                         (numeric) local time transaction entered pool in seconds since 1 Jan 1970 GMT\n    \"height\" : n,                         (numeric) block height when transaction entered pool\n    \"descendantcount\" : n,                (numeric) number of in-mempool descendant transactions (including this one)\n    \"descendantsize\" : n,                 (numeric) virtual transaction size of in-mempool descendants (including this one)\n    \"descendantfees\" : n,                 (numeric) modified fees (see above) of in-mempool descendants (including this one) (DEPRECATED)\n    \"ancestorcount\" : n,                  (numeric) number of in-mempool ancestor transactions (including this one)\n    \"ancestorsize\" : n,                   (numeric) virtual transaction size of in-mempool ancestors (including this one)\n    \"ancestorfees\" : n,                   (numeric) modified fees (see above) of in-mempool ancestors (including this one) (DEPRECATED)\n    \"wtxid\" : \"hex\",                      (string) hash of serialized transaction, including witness data\n    \"fees\" : {                            (json object)\n      \"base\" : n,                         (numeric) transaction fee in BTC\n      \"modified\" : n,                     (numeric) transaction fee with fee deltas used for mining priority in BTC\n      \"ancestor\" : n,                     (numeric) modified fees (see above) of in-mempool ancestors (including this one) in BTC\n      \"descendant\" : n                    (numeric) modified fees (see above) of in-mempool descendants (including this one) in BTC\n    },\n    \"depends\" : [                         (json array) unconfirmed transactions used as inputs for this transaction\n      \"hex\",                              (string) parent transaction id\n      ...\n    ],\n    \"spentby\" : [                         (json array) unconfirmed transactions spending outputs from this transaction\n      \"hex\",                              (string) child transaction id\n      ...\n    ],\n    \"bip125-replaceable\" : true|false,    (boolean) Whether this transaction could be replaced due to BIP125 (replace-by-fee)\n    \"unbroadcast\" : true|false            (boolean) Whether this transaction is currently unbroadcast (initial broadcast not yet acknowledged by any peers)\n  },\n  ...\n}\nResult (for verbose = false and mempool_sequence = true)\n{                            (json object)\n  \"txids\" : [                (json array)\n    \"hex\",                   (string) The transaction id\n    ...\n  ],\n  \"mempool_sequence\" : n     (numeric) The mempool sequence value.\n}\n```\n## Examples\n```\nbitcoin-cli getrawmempool true\ncurl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"getrawmempool\", \"params\": [true]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/\n```"
 					},
@@ -703,12 +703,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{server}}:8332",
-							"protocol": "http",
+							"raw": "http://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{server}}"
 							],
-							"port": "8332"
+							"port": "{{port}}"
 						}
 					},
 					"response": []
@@ -746,12 +746,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{server}}:8332",
-							"protocol": "http",
+							"raw": "http://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{server}}"
 							],
-							"port": "8332"
+							"port": "{{port}}"
 						},
 						"description": "# getmininginfo\n`getmininginfo`\n\nReturns a json object containing mining-related information.\n\n## Result\n```\n{                              (json object)\n  \"blocks\" : n,                (numeric) The current block\n  \"currentblockweight\" : n,    (numeric, optional) The block weight of the last assembled block (only present if a block was ever assembled)\n  \"currentblocktx\" : n,        (numeric, optional) The number of block transactions of the last assembled block (only present if a block was ever assembled)\n  \"difficulty\" : n,            (numeric) The current difficulty\n  \"networkhashps\" : n,         (numeric) The network hashes per second\n  \"pooledtx\" : n,              (numeric) The size of the mempool\n  \"chain\" : \"str\",             (string) current network name (main, test, regtest)\n  \"warnings\" : \"str\"           (string) any network and blockchain warnings\n}\n```\n## Examples\n```\nbitcoin-cli getmininginfo\ncurl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"getmininginfo\", \"params\": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/\n```"
 					},
@@ -795,12 +795,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{server}}:8332",
-							"protocol": "http",
+							"raw": "http://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{server}}"
 							],
-							"port": "8332"
+							"port": "{{port}}"
 						},
 						"description": "# `uptime`\n\nReturns the total uptime of the server."
 					},
