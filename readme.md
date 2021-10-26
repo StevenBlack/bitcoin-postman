@@ -1,4 +1,4 @@
-# bitcoin-node-postman
+# bitcoin-postman
 
 A Postman import to query a Bitcoin node.
 
