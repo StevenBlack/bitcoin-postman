@@ -2,7 +2,7 @@
 
 A Postman import to query a Bitcoin node.
 
-## Status 
+## Status
 
 Under development. Not ready for general consumption just yet.
 
@@ -14,7 +14,7 @@ This collection implements some of the functions documented in the [Bitcoin RPC 
 
 This collection uses Postman environment variables.  Here's what I've got:
 
-![2021-10-25_23-52-12](https://user-images.githubusercontent.com/80144/138806239-f1ddf8ec-1f66-4610-9a27-e020316f9738.jpg)
+![2021-10-26_23-52-42](https://user-images.githubusercontent.com/80144/138998059-266808f3-fd1e-4b86-9a6a-36b5cf80f5c3.png)
 
 No quote symbols are required in any environment variable.
 
@@ -54,9 +54,9 @@ This collection is a work in progress.
 * `verifytxoutproof`
 
 ### Control RPCs
-* `getmemoryinfo`
-* `getrpcinfo`
-* `help`
+* `getmemoryinfo ✅`
+* `getrpcinfo ✅`
+* `help ✅`
 * `logging`
 * `stop`
 * `uptime ✅`
@@ -69,7 +69,7 @@ This collection is a work in progress.
 ### Mining RPCs
 * `getblocktemplate ✅`
 * `getmininginfo ✅`
-* `getnetworkhashps`
+* `getnetworkhashps ✅`
 * `prioritisetransaction`
 * `submitblock`
 * `submitheader`
@@ -79,11 +79,11 @@ This collection is a work in progress.
 * `clearbanned`
 * `disconnectnode`
 * `getaddednodeinfo`
-* `getconnectioncount`
-* `getnettotals`
-* `getnetworkinfo`
+* `getconnectioncount ✅`
+* `getnettotals ✅`
+* `getnetworkinfo ✅`
 * `getnodeaddresses`
-* `getpeerinfo`
+* `getpeerinfo ✅`
 * `listbanned`
 * `ping`
 * `setban`
