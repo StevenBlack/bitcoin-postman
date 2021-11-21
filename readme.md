@@ -1,6 +1,6 @@
 # bitcoin-postman
 
-A Postman import to query a Bitcoin node.
+Using Postman to query your Bitcoin node.
 
 ## Status
 
