@@ -573,7 +573,8 @@
 								"{{server}}"
 							],
 							"port": "{{port}}"
-						}
+						},
+						"description": "# getblockfilter\n\n`getblockfilter \"blockhash\" ( \"filtertype\" )`\n\nRetrieve a BIP 157 content filter for a particular block.\n\n## Argument #1 - blockhash\n\n**Type:** string, required\n\nThe hash of the block\n\n## Argument #2 - filtertype\n\n**Type:** string, optional, default=basic\n\nThe type name of the filter\n\n## Result\n\n```\n{                      (json object)\n  \"filter\" : \"hex\",    (string) the hex-encoded filter data\n  \"header\" : \"hex\"     (string) the hex-encoded filter header}\n```\n\n## Examples\n\n``` bash\nbitcoin-cli getblockfilter \"00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09\" \"basic\"\n```\n\n``` bash\ncurl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"getblockfilter\", \"params\": [\"00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09\", \"basic\"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/\n```\n\n# TAKE NOTE! \n\nMay not work on your node.  See [https://bitcoin.stackexchange.com/questions/96752/getblockfilter-error-index-is-not-enabled-for-filtertype-basic](https://bitcoin.stackexchange.com/questions/96752/getblockfilter-error-index-is-not-enabled-for-filtertype-basic)"
 					},
 					"response": []
 				},
@@ -1160,6 +1161,94 @@
 							"port": "{{port}}"
 						},
 						"description": "# getnettotals\n`getnettotals`\n\nReturns information about network traffic, including bytes in, bytes out, and current time.\n\n## Result\n```\n{                                              (json object)\n  \"totalbytesrecv\" : n,                        (numeric) Total bytes received\n  \"totalbytessent\" : n,                        (numeric) Total bytes sent\n  \"timemillis\" : xxx,                          (numeric) Current UNIX epoch time in milliseconds\n  \"uploadtarget\" : {                           (json object)\n    \"timeframe\" : n,                           (numeric) Length of the measuring timeframe in seconds\n    \"target\" : n,                              (numeric) Target in bytes\n    \"target_reached\" : true|false,             (boolean) True if target is reached\n    \"serve_historical_blocks\" : true|false,    (boolean) True if serving historical blocks\n    \"bytes_left_in_cycle\" : n,                 (numeric) Bytes left in current time cycle\n    \"time_left_in_cycle\" : n                   (numeric) Seconds left in current time cycle\n  }\n}\n```\n## Examples\n```\nbitcoin-cli getnettotals\ncurl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"getnettotals\", \"params\": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "listbanned",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"method\": \"listbanned\",\n    \"params\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}"
+						},
+						"description": "# listbanned\n\n`listbanned`\n\nList all manually banned IPs/Subnets.\n\n## Result\n\n``` bash\n[\n  {\n  \"address\": \n\n```\n\n## Examples\n\n``` bash\nbitcoin-cli listbanned\n\n```\n\n``` bash\ncurl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"listbanned\", \"params\": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/\n\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "ping",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"method\": \"ping\",\n    \"params\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}"
+						},
+						"description": "# ping\n\n`ping`\n\nRequests that a ping be sent to all other nodes, to measure ping time.\n\nResults provided in getpeerinfo, pingtime and pingwait fields are decimal seconds.\n\nPing command is handled in queue with all other commands, so it measures processing backlog, not just network ping.\n\n## Result\n\n``` bash\nnull    (json null)\n\n```\n\n## Examples\n\n``` bash\nbitcoin-cli ping\n\n```\n\n``` bash\ncurl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"ping\", \"params\": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/\n\n```"
 					},
 					"response": []
 				}

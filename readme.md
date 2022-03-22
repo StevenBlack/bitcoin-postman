@@ -84,8 +84,8 @@ This collection is a work in progress.
 * `getnetworkinfo ✅`
 * `getnodeaddresses`
 * `getpeerinfo ✅`
-* `listbanned`
-* `ping`
+* `listbanned ✅`
+* `ping ✅`
 * `setban`
 * `setnetworkactive`
 
