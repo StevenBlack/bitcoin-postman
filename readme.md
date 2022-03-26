@@ -25,6 +25,7 @@ This collection is a work in progress.
 ### Key
 * ✅ = presently working
 * ❌ = presently broken
+* 🟡 = exists but is still sketch
 
 ### Blockchain RPCs
 * `getbestblockhash ✅`
@@ -140,7 +141,7 @@ Note: the wallet RPCs are only available if Bitcoin Core was built with wallet s
 * `getreceivedbylabel`
 * `gettransaction`
 * `getunconfirmedbalance`
-* `getwalletinfo`
+* `getwalletinfo 🟡`
 * `importaddress`
 * `importdescriptors`
 * `importmulti`
@@ -155,11 +156,11 @@ Note: the wallet RPCs are only available if Bitcoin Core was built with wallet s
 * `listreceivedbyaddress`
 * `listreceivedbylabel`
 * `listsinceblock`
-* `listtransactions`
+* `listtransactions 🟡`
 * `listunspent`
-* `listwalletdir`
-* `listwallets`
-* `loadwallet`
+* `listwalletdir ✅`
+* `listwallets ✅`
+* `loadwallet ✅`
 * `lockunspent`
 * `psbtbumpfee`
 * `removeprunedfunds`
@@ -173,7 +174,7 @@ Note: the wallet RPCs are only available if Bitcoin Core was built with wallet s
 * `setwalletflag`
 * `signmessage`
 * `signrawtransactionwithwallet`
-* `unloadwallet`
+* `unloadwallet ✅`
 * `upgradewallet`
 * `walletcreatefundedpsbt`
 * `walletlock`

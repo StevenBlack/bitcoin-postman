@@ -1253,6 +1253,291 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Rawtransactions",
+			"item": []
+		},
+		{
+			"name": "Util",
+			"item": []
+		},
+		{
+			"name": "Wallet",
+			"item": [
+				{
+					"name": "createwallet",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"method\": \"createwallet\",\n    \"params\": [\n        \"muffy.dat\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}"
+						},
+						"description": "# createwallet\n\n`createwallet \"wallet_name\" ( disable_private_keys blank \"passphrase\" avoid_reuse descriptors load_on_startup )`\n\nCreates and loads a new wallet.\n\n## Argument #1 - wallet_name\n\n**Type:** string, required\n\nThe name for the new wallet. If this is a path, the wallet will be created at the path location.\n\n## Argument #2 - disable_private_keys\n\n**Type:** boolean, optional, default=false\n\nDisable the possibility of private keys (only watchonlys are possible in this mode).\n\n## Argument #3 - blank\n\n**Type:** boolean, optional, default=false\n\nCreate a blank wallet. A blank wallet has no keys or HD seed. One can be set using sethdseed.\n\n## Argument #4 - passphrase\n\n**Type:** string\n\nEncrypt the wallet with this passphrase.\n\n## Argument #5 - avoid_reuse\n\n**Type:** boolean, optional, default=false\n\nKeep track of coin reuse, and treat dirty and clean coins differently with privacy considerations in mind.\n\n## Argument #6 - descriptors\n\n**Type:** boolean, optional, default=false\n\nCreate a native descriptor wallet. The wallet will use descriptors internally to handle address creation\n\n## Argument #7 - load_on_startup\n\n**Type:** boolean, optional, default=null\n\nSave wallet name to persistent settings and load on startup. True to  \nadd wallet to startup list, false to remove, null to leave unchanged.\n\n## Result\n\n```\n{                       (json object)\n  \"name\" : \"str\",       (string) The wallet name if created successfully. If the wallet was created using a full path, the wallet_name will be the full path.\n  \"warning\" : \"str\"     (string) Warning message if wallet was not loaded cleanly.}\n```\n\n## Examples\n\n``` bash\nbitcoin-cli createwallet \"testwallet\"\n```\n\n``` bash\ncurl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"createwallet\", \"params\": [\"testwallet\"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/\n\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "getwalletinfo",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"method\": \"listwalletdir\",\n    \"params\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}"
+						},
+						"description": "# getwalletinfo\n\n`getwalletinfo`\n\nReturns an object containing various wallet state info.\n\n## Result\n\n``` json\n{                                         (json object)\n  \"walletname\" : \"str\",                   (string) the wallet name\n  \"walletversion\" : n,                    (numeric) the wallet version\n  \"format\" : \"str\",                       (string) the database format (bdb or sqlite)\n  \"balance\" : n,                          (numeric) DEPRECATED. Identical to getbalances().mine.trusted\n  \"unconfirmed_balance\" : n,              (numeric) DEPRECATED. Identical to getbalances().mine.untrusted_pending\n  \"immature_balance\" : n,                 (numeric) DEPRECATED. Identical to getbalances().mine.immature\n  \"txcount\" : n,                          (numeric) the total number of transactions in the wallet\n  \"keypoololdest\" : xxx,                  (numeric) the UNIX epoch time of the oldest pre-generated key in the key pool. Legacy wallets only.\n  \"keypoolsize\" : n,                      (numeric) how many new keys are pre-generated (only counts external keys)\n  \"keypoolsize_hd_internal\" : n,          (numeric) how many new keys are pre-generated for internal use (used for change outputs, only appears if the wallet is using this feature, otherwise external keys are used)\n  \"unlocked_until\" : xxx,                 (numeric, optional) the UNIX epoch time until which the wallet is unlocked for transfers, or 0 if the wallet is locked (only present for passphrase-encrypted wallets)\n  \"paytxfee\" : n,                         (numeric) the transaction fee configuration, set in BTC/kvB\n  \"hdseedid\" : \"hex\",                     (string, optional) the Hash160 of the HD seed (only present when HD is enabled)\n  \"private_keys_enabled\" : true|false,    (boolean) false if privatekeys are disabled for this wallet (enforced watch-only wallet)\n  \"avoid_reuse\" : true|false,             (boolean) whether this wallet tracks clean/dirty coins in terms of reuse\n  \"scanning\" : {                          (json object) current scanning details, or false if no scan is in progress\n    \"duration\" : n,                       (numeric) elapsed seconds since scan start\n    \"progress\" : n                        (numeric) scanning progress percentage [0.0, 1.0]\n  },\n  \"descriptors\" : true|false              (boolean) whether this wallet uses descriptors for scriptPubKey management}\n```\n\n## Examples\n\n``` bash\nbitcoin-cli getwalletinfo\n\n```\n\n``` bash\ncurl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"getwalletinfo\", \"params\": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/\n\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "loadwallet",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"method\": \"loadwallet\",\n    \"params\": [\n        \"muffy.dat\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}"
+						},
+						"description": "# loadwallet\n\n`loadwallet \"filename\" ( load_on_startup )`\n\nLoads a wallet from a wallet file or directory.\n\nNote that all wallet command-line options used when starting bitcoind will be  \napplied to the new wallet (eg -rescan, etc).\n\n## Argument #1 - filename\n\n**Type:** string, required\n\nThe wallet directory or .dat file.\n\n## Argument #2 - load_on_startup\n\n**Type:** boolean, optional, default=null\n\nSave wallet name to persistent settings and load on startup. True to  \nadd wallet to startup list, false to remove, null to leave unchanged.\n\n## Result\n\n```\n{                       (json object)\n  \"name\" : \"str\",       (string) The wallet name if loaded successfully.\n  \"warning\" : \"str\"     (string) Warning message if wallet was not loaded cleanly.}\n```\n\n## Examples\n\n``` bash\nbitcoin-cli loadwallet \"test.dat\"\n```\n\n``` bash\ncurl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"loadwallet\", \"params\": [\"test.dat\"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/\n\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "listtransactions",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"method\": \"listtransactions\",\n    \"params\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}"
+						},
+						"description": "# listtransactions\n\n`listtransactions ( \"label\" count skip include_watchonly )`\n\nIf a label name is provided, this will return only incoming transactions paying to addresses with the specified label.\n\nReturns up to ‘count’ most recent transactions skipping the first ‘from’ transactions.\n\n## Argument #1 - label\n\n**Type:** string, optional\n\nIf set, should be a valid label name to return only incoming transactions\n\nwith the specified label, or “*” to disable filtering and return all transactions.\n\n## Argument #2 - count\n\n**Type:** numeric, optional, default=10\n\nThe number of transactions to return\n\n## Argument #3 - skip\n\n**Type:** numeric, optional, default=0\n\nThe number of transactions to skip\n\n## Argument #4 - include_watchonly\n\n**Type:** boolean, optional, default=true for watch-only wallets, otherwise false\n\nInclude transactions to watch-only addresses (see ‘importaddress’)\n\n## Result\n\n``` json\n[                                        (json array)\n  {                                      (json object)\n    \"involvesWatchonly\" : true|false,    (boolean) Only returns true if imported addresses were involved in transaction.\n    \"address\" : \"str\",                   (string) The bitcoin address of the transaction.\n    \"category\" : \"str\",                  (string) The transaction category.\n                                         \"send\"                  Transactions sent.\n                                         \"receive\"               Non-coinbase transactions received.\n                                         \"generate\"              Coinbase transactions received with more than 100 confirmations.\n                                         \"immature\"              Coinbase transactions received with 100 or fewer confirmations.\n                                         \"orphan\"                Orphaned coinbase transactions received.\n    \"amount\" : n,                        (numeric) The amount in BTC. This is negative for the 'send' category, and is positive\n                                         for all other categories\n    \"label\" : \"str\",                     (string) A comment for the address/transaction, if any\n    \"vout\" : n,                          (numeric) the vout value\n    \"fee\" : n,                           (numeric) The amount of the fee in BTC. This is negative and only available for the\n                                         'send' category of transactions.\n    \"confirmations\" : n,                 (numeric) The number of confirmations for the transaction. Negative confirmations means the\n                                         transaction conflicted that many blocks ago.\n    \"generated\" : true|false,            (boolean) Only present if transaction only input is a coinbase one.\n    \"trusted\" : true|false,              (boolean) Only present if we consider transaction to be trusted and so safe to spend from.\n    \"blockhash\" : \"hex\",                 (string) The block hash containing the transaction.\n    \"blockheight\" : n,                   (numeric) The block height containing the transaction.\n    \"blockindex\" : n,                    (numeric) The index of the transaction in the block that includes it.\n    \"blocktime\" : xxx,                   (numeric) The block time expressed in UNIX epoch time.\n    \"txid\" : \"hex\",                      (string) The transaction id.\n    \"walletconflicts\" : [                (json array) Conflicting transaction ids.\n      \"hex\",                             (string) The transaction id.\n      ...\n    ],\n    \"time\" : xxx,                        (numeric) The transaction time expressed in UNIX epoch time.\n    \"timereceived\" : xxx,                (numeric) The time received expressed in UNIX epoch time.\n    \"comment\" : \"str\",                   (string) If a comment is associated with the transaction, only present if not empty.\n    \"bip125-replaceable\" : \"str\",        (string) (\"yes|no|unknown\") Whether this transaction could be replaced due to BIP125 (replace-by-fee);\n                                         may be unknown for unconfirmed transactions not in the mempool\n    \"abandoned\" : true|false             (boolean) 'true' if the transaction has been abandoned (inputs are respendable). Only available for the\n                                         'send' category of transactions.\n  },\n  ...]\n```\n\n## Examples\n\nList the most recent 10 transactions in the systems:\n\n``` bash\nbitcoin-cli listtransactions\n\n```\n\nList transactions 100 to 120:\n\n``` bash\nbitcoin-cli listtransactions \"*\" 20 100\n```\n\nAs a JSON-RPC call:\n\n``` bash\ncurl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"listtransactions\", \"params\": [\"*\", 20, 100]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/\n\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "listwalletdir",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"method\": \"listwalletdir\",\n    \"params\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}"
+						},
+						"description": "# listwalletdir\n\n`listwalletdir`\n\nReturns a list of wallets in the wallet directory.\n\n## Result\n\n```\n{                        (json object)\n  \"wallets\" : [          (json array)\n    {                    (json object)\n      \"name\" : \"str\"     (string) The wallet name\n    },\n    ...\n  ]}\n\n```\n\n## Examples\n\n``` bash\nbitcoin-cli listwalletdir\n\n```\n\n``` bash\ncurl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"listwalletdir\", \"params\": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/\n\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "listwallets",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"method\": \"getblockstats\",\n    \"params\": [\n        {{height}},\n        []\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{server}}:{{port}}",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}"
+						},
+						"description": "# listwallets\n\n`listwallets`\n\nReturns a list of currently loaded wallets.\n\nFor full information on the wallet, use “getwalletinfo”\n\n## Result\n\n```\n[           (json array)\n  \"str\",    (string) the wallet name\n  ...]\n\n```\n\n## Examples\n\n``` bash\nbitcoin-cli listwallets\n\n```\n\n``` bash\ncurl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"listwallets\", \"params\": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/\n\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "unloadwallet",
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
